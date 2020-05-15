@@ -1,14 +1,25 @@
 from igramscraper.instagram import Instagram
 from time import sleep
+import sys
 
 def getUser(username):
+    instagram = Instagram()
+    symbol = '@'
     account = instagram.get_account(username)
     sleep(1)
-    name = account.full_name
+    try:
+        name = account.full_name
+        if(symbol in name):
+            return name
+        else:
+            bio = account.biography
+            if(symbol in bio):
+                return bio
+    except:
+        return
 
 def main():
-    instagram = Instagram()
-    username = 'golive_entertainment'
-    getUser(username)
+    username = sys.argv[1]
+    print(getUser(username))
 
 main()
