@@ -1,6 +1,7 @@
 from igramscraper.instagram import Instagram
 from time import sleep
 import sys
+import re
 
 def getUser(username):
     instagram = Instagram()
@@ -10,10 +11,12 @@ def getUser(username):
     try:
         name = account.full_name
         if(symbol in name):
+            name = re.findall('\S+@\S+', name)
             return name
         else:
             bio = account.biography
             if(symbol in bio):
+                bio = re.findall('\S+@\S+', bio)
                 return bio
     except:
         return
